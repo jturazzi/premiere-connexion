@@ -45,7 +45,8 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure ldap --with-libdir=lib \
     && docker-php-ext-install -j$(nproc) gd ldap \
-    && apk del .build-deps
+    && apk del .build-deps \
+    && echo "TLS_REQCERT never" >> /etc/openldap/ldap.conf
 
 # Préparation des répertoires de l'application
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache /etc/caddy  \
