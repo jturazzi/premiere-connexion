@@ -115,17 +115,4 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Destinataire des notifications applicatives
-    |--------------------------------------------------------------------------
-    |
-    | Adresse recevant les notifications internes de l'application (ex :
-    | alerte lorsqu'un utilisateur définit son mot de passe de première
-    | connexion). Distincte de "from" qui concerne l'expéditeur.
-    |
-    */
-
-    'destination' => env('MAIL_DESTINATION'),
-
 ];

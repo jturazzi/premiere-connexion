@@ -14,16 +14,6 @@ services:
       APP_KEY: ""
       APP_URL: "http://localhost"
 
-      # Mail
-      MAIL_MAILER: "smtp"
-      MAIL_HOST: "VOTRE HOST"
-      MAIL_PORT: "25"
-      MAIL_USERNAME: ""
-      MAIL_PASSWORD: ""
-      MAIL_FROM_ADDRESS: "premiere-connexion@company.lan"
-      MAIL_FROM_NAME: "Première connexion"
-      MAIL_DESTINATION: "votre-email@company.lan"
-
       # LDAP (Active Directory) - flux de première connexion
       LDAP_CONNECTION: "default"
       LDAP_HOST: "votredc.company.lan"

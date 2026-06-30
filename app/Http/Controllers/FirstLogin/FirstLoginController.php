@@ -6,17 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FirstLogin\IdentifyRequest;
 use App\Http\Requests\FirstLogin\SetPasswordRequest;
 use App\Http\Requests\FirstLogin\VerifyIdentityRequest;
-use App\Mail\PasswordFirstSetMail;
 use App\Services\FirstLoginService;
 use App\Support\LdapErrorMapper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 use LdapRecord\LdapRecordException;
-use Throwable;
 
 class FirstLoginController extends Controller
 {
@@ -120,8 +117,6 @@ class FirstLoginController extends Controller
             ]);
         }
 
-        $this->notifyPasswordFirstSet($samaccountname, $request->ip());
-
         $request->session()->forget('first_login');
 
         return Inertia::render('FirstLogin/Done');
@@ -132,25 +127,6 @@ class FirstLoginController extends Controller
         $request->session()->forget('first_login');
 
         return to_route('first-login.identify');
-    }
-
-    private function notifyPasswordFirstSet(string $samaccountname, string $ip): void
-    {
-        $destination = config('mail.destination');
-
-        if (! $destination) {
-            return;
-        }
-
-        try {
-            Mail::to($destination)->send(new PasswordFirstSetMail($samaccountname, $ip, now()));
-        } catch (Throwable $exception) {
-            // Le mot de passe est déjà défini dans AD : un échec d'envoi ne doit
-            // jamais faire échouer le flux pour l'utilisateur.
-            Log::error('Échec de l\'envoi du mail de notification de première connexion', [
-                'message' => $exception->getMessage(),
-            ]);
-        }
     }
 
     private function ldapUnavailable(LdapRecordException $exception, string $field): RedirectResponse
