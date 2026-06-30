@@ -25,19 +25,23 @@ ENV AUTORUN_ENABLED=true
 
 USER root
 
-# Installation des paquets système et de l'extension GD
+# Installation des paquets système et des extensions GD + LDAP
+# (ext-ldap est requis par directorytree/ldaprecord, sinon `composer install`
+# échoue sur les requirements de plateforme)
 RUN apk add --no-cache \
     bash \
     curl \
     libpng \
     libjpeg-turbo \
     freetype \
+    openldap \
     && apk add --no-cache --virtual .build-deps \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
+    openldap-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) gd ldap \
     && apk del .build-deps
 
 # Préparation des répertoires de l'application
