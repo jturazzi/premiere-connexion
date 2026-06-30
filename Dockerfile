@@ -27,7 +27,9 @@ USER root
 
 # Installation des paquets système et des extensions GD + LDAP
 # (ext-ldap est requis par directorytree/ldaprecord, sinon `composer install`
-# échoue sur les requirements de plateforme)
+# échoue sur les requirements de plateforme. --with-libdir=lib est nécessaire
+# sur Alpine sinon ext-ldap se compile sans support TLS et ldaps:// échoue
+# silencieusement avec "Can't contact LDAP server")
 RUN apk add --no-cache \
     bash \
     curl \
@@ -41,6 +43,7 @@ RUN apk add --no-cache \
     freetype-dev \
     openldap-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure ldap --with-libdir=lib \
     && docker-php-ext-install -j$(nproc) gd ldap \
     && apk del .build-deps
 
