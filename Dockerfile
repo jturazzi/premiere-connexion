@@ -61,6 +61,9 @@ COPY --chown=www-data:www-data . /var/www/html
 # Injection des assets compilés depuis le stage 1
 COPY --from=assets-builder --chown=www-data:www-data /app/public/build /var/www/html/public/build
 
+# Mitigation
+COPY php/99-mitigations.ini /usr/local/etc/php/conf.d/99-mitigations.ini
+
 USER www-data
 WORKDIR /var/www/html
 
