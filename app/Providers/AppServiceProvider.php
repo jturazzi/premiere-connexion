@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\SentryQueueReporting;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        SentryQueueReporting::register();
+
         // Limite la recherche d'identifiant (étape 1) pour empêcher l'énumération
         // de comptes par brute force (aucun identifiant n'est encore connu en
         // session à ce stade, on ne peut limiter que par IP).

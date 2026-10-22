@@ -1,5 +1,6 @@
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import { initSentry } from './sentry';
 
 createInertiaApp({
     resolve: (name) => {
@@ -7,7 +8,11 @@ createInertiaApp({
         return pages[`./Pages/${name}.vue`];
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) });
+
+        initSentry(app);
+
+        app
             .use(plugin)
             .mount(el);
     },
