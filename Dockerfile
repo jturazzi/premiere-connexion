@@ -69,3 +69,9 @@ WORKDIR /var/www/html
 
 # Installation des dépendances PHP (production)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+# Version déployée, renseignée par la CI et exposée par /api/system-info
+ARG APP_COMMIT
+ARG APP_BUILD_DATE
+ENV APP_COMMIT=${APP_COMMIT} \
+    APP_BUILD_DATE=${APP_BUILD_DATE}

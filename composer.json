@@ -9,6 +9,7 @@
         "php": "^8.3",
         "directorytree/ldaprecord-laravel": "^4.0",
         "inertiajs/inertia-laravel": "^3.1",
+        "jturazzi/laravel-system-info": "^1.0",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
         "tightenco/ziggy": "^2.6"
