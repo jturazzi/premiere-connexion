@@ -1,7 +1,7 @@
 # ============================================
 # Stage 1 : Compilation des assets frontend
 # ============================================
-FROM node:20-alpine AS assets-builder
+FROM node:26-alpine AS assets-builder
 
 WORKDIR /app
 
