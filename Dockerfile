@@ -25,6 +25,9 @@ ENV AUTORUN_ENABLED=true
 
 USER root
 
+# mbstring n'est plus incluse dans l'image de base PHP 8.6
+RUN install-php-extensions mbstring
+
 # Installation des paquets système et des extensions GD + LDAP
 # (ext-ldap est requis par directorytree/ldaprecord, sinon `composer install`
 # échoue sur les requirements de plateforme. --with-libdir=lib est nécessaire
