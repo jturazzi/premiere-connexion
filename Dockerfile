@@ -17,7 +17,7 @@ RUN npm run build
 # ============================================
 # Stage 2 : Image de production
 # ============================================
-FROM serversideup/php:8.5-frankenphp-alpine
+FROM serversideup/php:8.6-frankenphp-alpine
 
 # Configuration PHP
 ENV PHP_OPCACHE_ENABLE=1
